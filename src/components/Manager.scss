@@ -1,0 +1,168 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-left: 1px solid black;
+  //box-shadow: -1px 0px 48px -9px rgba(0, 0, 0, 0.91) inset;
+
+  h2 {
+    text-decoration: underline;
+  }
+}
+
+.section-input {
+  display: flex;
+  flex-direction: column;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 1rem 2rem;
+    border: 1px solid black;
+    box-shadow: -1px 0px 24px -9px rgba(0, 0, 0, 0.91) inset;
+
+    span {
+      align-self: start;
+      margin-bottom: 1rem;
+    }
+    div {
+      margin: 0.5rem 0;
+
+      button {
+        width: auto;
+        padding: 1rem;
+        margin: 0 0.5rem;
+
+        transition: all ease 200ms;
+
+        &.selected {
+          color: black;
+          background-color: #ccc;
+        }
+      }
+    }
+  }
+
+  &__state_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    margin-top: 1rem;
+    button {
+      padding: 0.8rem 2.5rem;
+    }
+  }
+
+  &__description {
+    white-space: pre-wrap;
+  }
+
+  &__data-input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+
+    &__checkbox {
+      display: flex;
+      label {
+        width: 100%;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.section-table {
+  width: 95%;
+  height: 100%;
+  padding-top: 1rem;
+  margin: 2rem auto;
+
+  border-top: 1px solid black;
+  text-align: left;
+
+  span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .table-frame {
+    width: 100%;
+    height: 350px;
+
+    margin-top: 0.5rem;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+  }
+}
+
+table {
+  width: 600px;
+  color: white;
+  border-collapse: collapse;
+  margin: 1rem auto;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+  position: relative;
+
+  th,
+  td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    top: 0px;
+    position: sticky;
+
+    background-color: green;
+    background-color: #e5e5e5;
+    color: black;
+  }
+
+  tr {
+    cursor: pointer;
+    transition: background-color ease 200ms;
+    &.selected {
+      background-color: rgba(0, 128, 0, 0.427);
+    }
+
+    td {
+      border-left: 1px solid #ddd;
+      border-radius: 1px solid #ddd;
+    }
+
+    td:last-child {
+      text-align: center;
+
+      transition: all 200ms ease;
+
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.756);
+      }
+    }
+  }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
