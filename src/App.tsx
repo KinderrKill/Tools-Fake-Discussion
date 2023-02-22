@@ -1,61 +1,61 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './App.scss';
-import Manager from './components/Manager';
+import React, { useEffect, useRef, useState } from 'react'
+import './App.scss'
+import Manager from './components/Manager'
 
-import * as constants from './utils/constants';
-import TypingWriter from './components/TypingWriter';
+import * as constants from './utils/constants'
+import TypingWriter from './components/TypingWriter'
 
 function App() {
-  const [chatIsActive, setChatIsActive] = useState<boolean>(false);
+  const [chatIsActive, setChatIsActive] = useState<boolean>(false)
   const [params, setParams] = useState({
     typingSpeed: 50,
     deletingSpeed: 30,
     startLeft: false,
-  });
-  const [items, setItems] = useState<constants.ITEM_TABLE>();
+  })
+  const [items, setItems] = useState<constants.ITEM_TABLE>()
 
-  const typingWriterDivRef = useRef<HTMLDivElement>(null);
-  const typingWriterRef = useRef<TypingWriter>();
+  const typingWriterDivRef = useRef<HTMLDivElement>(null)
+  const typingWriterRef = useRef<TypingWriter>()
 
   useEffect(() => {
     if (typingWriterDivRef.current)
-      typingWriterRef.current = new TypingWriter(document.querySelector('.chat-frame') as HTMLElement, setChatIsActive);
-  }, [typingWriterDivRef]);
+      typingWriterRef.current = new TypingWriter(document.querySelector('.chat-frame') as HTMLElement, setChatIsActive)
+  }, [typingWriterDivRef])
 
   function sendItems(inputList: constants.ITEM_TABLE): void {
-    setItems(inputList);
+    setItems(inputList)
   }
 
   function launchScript() {
-    if (!items || !typingWriterRef.current) return;
+    if (!items || !typingWriterRef.current) return
 
-    let typingWriter = typingWriterRef.current;
+    let typingWriter = typingWriterRef.current
 
-    if (typingWriter.isActive()) return;
+    if (typingWriter.isActive()) return
     else if (typingWriter.isFinished()) {
-      typingWriter.reset();
-      typingWriter = typingWriterRef.current;
+      typingWriter.reset()
+      typingWriter = typingWriterRef.current
     }
 
-    typingWriter.typingSpeed = params.typingSpeed;
-    typingWriter.deletingSpeed = params.deletingSpeed;
+    typingWriter.typingSpeed = params.typingSpeed
+    typingWriter.deletingSpeed = params.deletingSpeed
 
     items.forEach((item) => {
-      if (item.type == constants.DATA_TYPE.TEXT) typingWriter.type(item.value as string);
-      else if (item.type == constants.DATA_TYPE.PAUSE) typingWriter.pauseFor(item.value as number);
-      else if (item.type == constants.DATA_TYPE.DELETE) typingWriter.deleteChar(item.value as number);
-      else if (item.type == constants.DATA_TYPE.REMOVE) typingWriter.deleteAll(item.value as number);
-      else if (item.type == constants.DATA_TYPE.ADD) typingWriter.newBubble(item.value === 'true');
-    });
+      if (item.type == constants.DATA_TYPE.TEXT) typingWriter.type(item.value as string)
+      else if (item.type == constants.DATA_TYPE.PAUSE) typingWriter.pauseFor(item.value as number)
+      else if (item.type == constants.DATA_TYPE.DELETE) typingWriter.deleteChar(item.value as number)
+      else if (item.type == constants.DATA_TYPE.REMOVE) typingWriter.deleteAll(item.value as number)
+      else if (item.type == constants.DATA_TYPE.ADD) typingWriter.newBubble(item.value === 'true')
+    })
 
-    typingWriter.start(params.startLeft);
+    typingWriter.start(params.startLeft)
   }
 
   function resetScript() {
-    if (!typingWriterRef.current) return;
+    if (!typingWriterRef.current) return
 
-    typingWriterRef.current.reset();
-    typingWriterRef.current = new TypingWriter(document.querySelector('.chat-frame') as HTMLElement, setChatIsActive);
+    typingWriterRef.current.reset()
+    typingWriterRef.current = new TypingWriter(document.querySelector('.chat-frame') as HTMLElement, setChatIsActive)
   }
   // END of V.1.0 Refacto
 
@@ -128,7 +128,7 @@ function App() {
           <div className='footer'>
             <span>
               &copy; {new Date().getFullYear()} <a href='https://github.com/kinderrkill'>E-Code</a>. Tous droits
-              réservés - Made with ♥
+              réservés - Made with ♥ - Version 1.0
             </span>
           </div>
         </article>
@@ -137,7 +137,7 @@ function App() {
         </article>
       </section>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
