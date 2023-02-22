@@ -1,3 +1,3 @@
-## v1.0.0
+## v1.0
 
-- First version of FakeDiscussion website
+- First version of FakeDiscussion website (No responsive design!)

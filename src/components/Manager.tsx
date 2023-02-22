@@ -1,75 +1,80 @@
-import './Manager.scss';
-import * as constants from '../utils/constants';
-import { useEffect, useState } from 'react';
+import './Manager.scss'
+import * as constants from '../utils/constants'
+import React, { useEffect, useState } from 'react'
 
 export default function Manager(props: { sendItems: (inputList: constants.ITEM_TABLE) => void }) {
-  const [selectedInputTypeId, setSelectedInputTypeId] = useState<number>(0);
-  const [selectedItemId, setSelectedItemId] = useState<number>(-1);
+  const [selectedInputTypeId, setSelectedInputTypeId] = useState<number>(0)
+  const [selectedItemId, setSelectedItemId] = useState<number>(-1)
 
-  const [input, setInput] = useState<constants.DYNAMIC_VALUE>(false);
-  const [items, setItems] = useState<constants.ITEM_TABLE>([]);
+  const [input, setInput] = useState<constants.DYNAMIC_VALUE>(false)
+  const [items, setItems] = useState<constants.ITEM_TABLE>([])
+
+  function handleSelectedInput(id: number) {
+    if (selectedInputTypeId != id) setInput('')
+
+    setSelectedInputTypeId(id)
+  }
 
   function handleInputChange(value: constants.DYNAMIC_VALUE) {
-    console.log('Add input 1', value);
-    setInput(typeof value === 'boolean' ? value.toString() : value);
+    setInput(typeof value === 'boolean' ? value.toString() : value)
   }
 
   function addInput() {
-    const itemId = items.length;
-    const value = typeof input === 'boolean' ? input.toString() : input;
+    const itemId = items.length
+    const value = typeof input === 'boolean' ? input.toString() : input
 
-    const inputType = constants.getInputTypeFromID(selectedInputTypeId);
+    const inputType = constants.getInputTypeFromID(selectedInputTypeId)
     const item = {
       id: itemId,
       type: inputType.type,
       label: inputType.label,
       value: value,
-    };
+    }
 
-    setItems((prevItems) => [...prevItems, item]);
+    setItems((prevItems) => [...prevItems, item])
   }
 
   function removeInput(inputId: number) {
-    const list = items.filter((item) => item.id != inputId);
-    setItems(list);
+    const list = items.filter((item) => item.id != inputId)
+    setItems(list)
 
     // Reset types buttons, selected item and input value
-    setSelectedInputTypeId(0);
-    setSelectedItemId(-1);
-    setInput(false);
+    setSelectedInputTypeId(0)
+    setSelectedItemId(-1)
+    setInput(false)
   }
 
   function modifyInput() {
-    if (selectedItemId === -1) return;
+    if (selectedItemId === -1) return
 
-    const item = items.filter((item) => item.id === selectedItemId)[0];
+    const item = items.filter((item) => item.id === selectedItemId)[0]
 
-    if (!item) return;
+    if (!item) return
 
-    const index = items.findIndex((obj) => obj.id === item.id);
+    const index = items.findIndex((obj) => obj.id === item.id)
     if (index !== -1) {
-      const convertedValue = typeof input === 'boolean' ? input.toString() : input;
-      item.value = convertedValue as constants.DYNAMIC_VALUE;
-      items.splice(index, 1, item);
+      const convertedValue = typeof input === 'boolean' ? input.toString() : input
+      item.value = convertedValue as constants.DYNAMIC_VALUE
+      items.splice(index, 1, item)
 
-      setItems(items);
+      setItems(items)
     }
   }
 
   // useEffect for detect clicked row on table
   useEffect(() => {
-    const selectedItem = items.filter((item) => item.id === selectedItemId)[0];
+    const selectedItem = items.filter((item) => item.id === selectedItemId)[0]
 
     if (selectedItem) {
-      setSelectedInputTypeId(selectedItem.type);
-      setInput(selectedItem.value);
+      setSelectedInputTypeId(selectedItem.type)
+      setInput(selectedItem.value)
     }
-  }, [selectedItemId]);
+  }, [selectedItemId])
 
   // UseEffect for detect modification on items and update parent
   useEffect(() => {
-    props.sendItems(items);
-  }, [items]);
+    props.sendItems(items)
+  }, [items])
 
   return (
     <section className='container'>
@@ -83,7 +88,7 @@ export default function Manager(props: { sendItems: (inputList: constants.ITEM_T
               <button
                 key={item.id}
                 onClick={() => {
-                  setSelectedInputTypeId(item.id);
+                  handleSelectedInput(item.id)
                 }}
                 className={selectedInputTypeId == item.id ? 'selected' : ''}>
                 {item.label}
@@ -95,7 +100,7 @@ export default function Manager(props: { sendItems: (inputList: constants.ITEM_T
               <button
                 key={item.id}
                 onClick={() => {
-                  setSelectedInputTypeId(item.id);
+                  handleSelectedInput(item.id)
                 }}
                 className={selectedInputTypeId == item.id ? 'selected' : ''}>
                 {item.label}
@@ -143,14 +148,14 @@ export default function Manager(props: { sendItems: (inputList: constants.ITEM_T
                     </td>
                     <td onClick={() => removeInput(item.id)}>X</td>
                   </tr>
-                );
+                )
               })}
             </tbody>
           </table>
         </div>
       </article>
     </section>
-  );
+  )
 }
 
 function getInputFromType(
@@ -185,5 +190,5 @@ function getInputFromType(
       value={actualValue as string}
       onChange={(event) => handleInputChange(event.currentTarget.value)}
     />
-  );
+  )
 }

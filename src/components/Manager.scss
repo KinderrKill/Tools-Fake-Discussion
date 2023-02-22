@@ -7,7 +7,8 @@
   align-items: center;
 
   border-left: 1px solid black;
-  //box-shadow: -1px 0px 48px -9px rgba(0, 0, 0, 0.91) inset;
+
+  background-color: var(--background-color-section);
 
   h2 {
     text-decoration: underline;
@@ -24,8 +25,6 @@
     align-items: center;
 
     padding: 1rem 2rem;
-    border: 1px solid black;
-    box-shadow: -1px 0px 24px -9px rgba(0, 0, 0, 0.91) inset;
 
     span {
       align-self: start;
@@ -42,8 +41,9 @@
         transition: all ease 200ms;
 
         &.selected {
-          color: black;
-          background-color: #ccc;
+          color: white;
+          background-color: var(--background-color-section);
+          border-color: #ffffff;
         }
       }
     }

@@ -54,8 +54,6 @@
         padding: 1rem 1.5rem;
 
         white-space: pre-wrap;
-
-        background-color: blue;
       }
     }
   }
@@ -63,7 +61,7 @@
   &__section-2 {
     grid-area: 5 / 1 / 6 / 3;
 
-    background-color: #717171;
+    background-color: var(--background-color-section);
     border-top: 1px solid black;
     //box-shadow: -1px 0px 48px -9px rgba(0, 0, 0, 0.91) inset;
 
