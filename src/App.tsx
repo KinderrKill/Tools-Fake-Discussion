@@ -80,7 +80,7 @@ function App() {
                     setParams((prevParams) => ({
                       typingSpeed: prevParams.typingSpeed,
                       deletingSpeed: prevParams.deletingSpeed,
-                      startLeft: event.currentTarget.checked,
+                      startLeft: event.target.checked,
                     }))
                   }
                 />

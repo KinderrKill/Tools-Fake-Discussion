@@ -6,7 +6,7 @@ export default function Manager(props: { sendItems: (inputList: constants.ITEM_T
   const [selectedInputTypeId, setSelectedInputTypeId] = useState<number>(0)
   const [selectedItemId, setSelectedItemId] = useState<number>(-1)
 
-  const [input, setInput] = useState<constants.DYNAMIC_VALUE>(false)
+  const [input, setInput] = useState<constants.DYNAMIC_VALUE>('')
   const [items, setItems] = useState<constants.ITEM_TABLE>([])
 
   function handleSelectedInput(id: number) {
@@ -21,8 +21,13 @@ export default function Manager(props: { sendItems: (inputList: constants.ITEM_T
 
   function addInput() {
     const itemId = items.length
-    const value = typeof input === 'boolean' ? input.toString() : input
+    let value = typeof input === 'boolean' ? input.toString() : input
 
+    console.log(value.toString().length);
+
+    if (value.toString().length === 0) value = "false";
+    
+    
     const inputType = constants.getInputTypeFromID(selectedInputTypeId)
     const item = {
       id: itemId,
